@@ -1,6 +1,6 @@
 local Library = {
     open = true,
-    accent = Color3.fromRGB(179,0,255),
+    accent = Color3.fromRGB(189,255,3),
     dragging = false,
     flags = {},
     tabs = {},
