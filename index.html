@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord Webhook Sender</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        input, textarea, button {
+            width: 100%;
+            padding: 0.5rem;
+            margin: 0.5rem 0;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #7289da;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #5b6eae;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Send Discord Webhook</h2>
+        <input type="text" id="webhook" placeholder="Enter webhook URL">
+        <textarea id="message" rows="4" placeholder="Enter your message"></textarea>
+        <button onclick="sendWebhook()">Send</button>
+    </div>
+
+    <script>
+        async function sendWebhook() {
+            const webhookURL = document.getElementById('webhook').value;
+            const messageContent = document.getElementById('message').value;
+
+            if (!webhookURL || !messageContent) {
+                alert("Please enter both webhook URL and message!");
+                return;
+            }
+
+            try {
+                const response = await fetch(webhookURL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ content: messageContent })
+                });
+
+                if (response.ok) {
+                    alert("Message sent successfully!");
+                } else {
+                    alert("Failed to send message. Check the webhook URL.");
+                }
+            } catch (error) {
+                alert("Error: " + error.message);
+            }
+        }
+    </script>
+</body>
+</html>
